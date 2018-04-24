@@ -23,6 +23,8 @@ var io = require('socket.io').listen(server);
 
 var comments = [];
 
+var users = [];
+
 io.sockets.on('connection', function(socket){
   console.log("Client/socket is connected");
   console.log("Client/socket id is: ", socket.id);
@@ -40,20 +42,31 @@ io.sockets.on('connection', function(socket){
     });
     socket.on( "points", function (data){
       
-      console.log(data);
+      //console.log(data.user);
 
-      //users.push({'user':data,'hash':socket.id});
-      
-      //io.emit( 'users', users);
-      
+      for (let i of users){
+        console.log(i,data.user);
+        if (i.user === data.user){
+
+          console.log('user is real');
+          i.points += data.points;
+          //console.log(i.points);
+
+        }
+
+      }
+      io.emit( 'users', users);
+
     });
 
     socket.on( "new_user", function (data){
       
-      console.log(data);
+      //console.log(data);
 
-      users.push({'user':data,'hash':socket.id});
+      users.push({'user':data.user,'hash':socket.id, points:0,position:[0,0]});
       
+      console.log(users);
+
       io.emit( 'users', users);
       
     });

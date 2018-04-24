@@ -83,6 +83,8 @@
             $( '#login').click(function(){ 
                 
                 localStorage.setItem('user',$('#usertext').val());
+                socket.emit("new_user",{user:localStorage.getItem('user')});
+                console.log(localStorage.getItem('user'));
                 
             });
 
@@ -177,6 +179,7 @@
 
 <div id='ninjaman'></div>
 <div id="my_score"></div>
+<div id="users"></div>
 </div>
 </div>
 </div>
@@ -186,7 +189,7 @@
 <script type="text/javascript">
 var socket = io();
 
-var username = localStorage.getItem("user");
+
 
 
     var worldDict = {
@@ -257,11 +260,12 @@ var username = localStorage.getItem("user");
     	
     }
 
-    drawNinjaman(username,socket)
+    drawNinjaman(socket)
     
     var score = 0;
 
     document.onkeydown = function(e) {
+    	var username = localStorage.getItem("user");
         if(e.keyCode == 37){
 
         	if(world[ninjaman.y][ninjaman.x - 1] != 1 && world[ninjaman.y][ninjaman.x -1] != null){
