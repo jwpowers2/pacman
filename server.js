@@ -59,11 +59,29 @@ io.sockets.on('connection', function(socket){
 
     });
 
+    socket.on( "coordinates", function (data){
+
+      for (let i of users){
+        console.log(i,data.user);
+        if (i.user === data.user){
+
+          console.log('user is real');
+          i.x = data.x;
+          i.y = data.y;
+          console.log(i.x,i.y);
+
+        }
+
+      }
+      io.emit( 'coordinates', users);
+
+    });
+
     socket.on( "new_user", function (data){
       
       //console.log(data);
 
-      users.push({'user':data.user,'hash':socket.id, points:0,position:[0,0]});
+      users.push({'user':data.user,'hash':socket.id, points:0,x:0,y:0});
       
       console.log(users);
 

@@ -270,6 +270,9 @@ var socket = io();
 
         	if(world[ninjaman.y][ninjaman.x - 1] != 1 && world[ninjaman.y][ninjaman.x -1] != null){
 
+                // emit new coordinates to server
+                socket.emit('coordinates', {user:username,x:ninjaman.x,y:ninjaman.y});
+
                 if(world[ninjaman.y][ninjaman.x -1] == 2){
                     score += 2;
                     if(username){
@@ -288,6 +291,10 @@ var socket = io();
         }
         if(e.keyCode == 39){
         	if(world[ninjaman.y][ninjaman.x + 1] != 1 && world[ninjaman.y][ninjaman.x + 1] != null){
+             
+                //emit new coordinates to server
+                socket.emit('coordinates', {user:username,x:ninjaman.x,y:ninjaman.y});
+
                 if(world[ninjaman.y][ninjaman.x +1] == 2){
                     score += 2;
                     if(username){
@@ -306,6 +313,11 @@ var socket = io();
         // add going up 
         if(e.keyCode == 38){
         	if(world[ninjaman.y - 1][ninjaman.x] != 1 && world[ninjaman.y - 1][ninjaman.x] != null){
+
+                // emit new coordinates to server
+                socket.emit('coordinates', {user:username,x:ninjaman.x,y:ninjaman.y});
+
+
                 if(world[ninjaman.y - 1][ninjaman.x] == 2){
                     score += 2;
                     if(username){
@@ -323,6 +335,10 @@ var socket = io();
         }
         if(e.keyCode == 40){
         	if(world[ninjaman.y + 1][ninjaman.x] != 1 && world[ninjaman.y + 1][ninjaman.x] != null){
+
+                // emit new coordinates to server
+                socket.emit('coordinates', {user:username,x:ninjaman.x,y:ninjaman.y});
+
                 if(world[ninjaman.y + 1][ninjaman.x] == 2){
                     score += 2;
                     if(username){
